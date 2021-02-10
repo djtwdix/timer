@@ -1,11 +1,20 @@
+const stdin = process.stdin;
+stdin.setRawMode(true);
+stdin.setEncoding('utf8');
+
 const args = process.argv.slice(2);
 
-const timer = args => {
-  for (const time of args) {
-    if (time > 0 && typeof Number(time) === "number") {
-      setTimeout(() => process.stdout.write('\x07'), time * 1000)
+console.log("Welcome to Daniel's Interactive Timer");
+console.log("*************************************")
+const timer = () => {
+  process.stdin.on('data', (key) => {
+    if (key === '\u0003') {
+      process.exit();
     }
-  }
+    if (key === '\u0062') {
+      process.stdout.write('\x07');
+    }
+  })
 }
 
-timer(args);
+module.exports = timer;
